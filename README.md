@@ -1,4 +1,4 @@
-# This is clean repo with eslint and prettier, also it has a basic structure.
+[//]: # (# This is clean repo with eslint and prettier, also it has a basic structure.)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
