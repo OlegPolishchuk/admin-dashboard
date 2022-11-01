@@ -7,6 +7,7 @@ import { useMode } from 'hooks';
 import { Dashboard } from 'scenes/dashboard/Dashboard';
 import { SidebarNav } from 'scenes/global/SidebarNav';
 import { Topbar } from 'scenes/global/Topbar';
+import { Team } from 'scenes/team/Team';
 import { ColorModeContext } from 'theme';
 import { ReturnComponentType } from 'types';
 
@@ -23,6 +24,7 @@ const App = (): ReturnComponentType => {
             <Topbar />
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/team" element={<Team />} />
             </Routes>
           </main>
         </div>
