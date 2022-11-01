@@ -32,7 +32,7 @@ export const Contacts = (): ReturnComponentType => {
 
   return (
     <Box m="20px">
-      <Header title="Contacts" subtitle="List of Contacts for Future Reference" />
+      <Header title="CONTACTS" subtitle="List of Contacts for Future Reference" />
 
       <Box
         m="40px 0 0 0"
