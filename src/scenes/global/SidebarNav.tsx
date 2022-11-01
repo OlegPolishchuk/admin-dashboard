@@ -62,6 +62,9 @@ export const SidebarNav = (): ReturnComponentType => {
   return (
     <Box
       sx={{
+        '& .sidebar': {
+          borderRight: 'none',
+        },
         '& .sidebar-inner': {
           background: `${colors.primary[400]} !important`,
         },
