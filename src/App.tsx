@@ -4,7 +4,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 
 import { useMode } from 'hooks';
-import Dashboard from 'scenes/dashboard/Dashboard';
+import { Dashboard } from 'scenes/dashboard/Dashboard';
 import { SidebarNav } from 'scenes/global/SidebarNav';
 import { Topbar } from 'scenes/global/Topbar';
 import { ColorModeContext } from 'theme';
