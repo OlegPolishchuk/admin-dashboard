@@ -4,6 +4,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 
 import { useMode } from 'hooks';
+import { Contacts } from 'scenes/contacts/Contacts';
 import { Dashboard } from 'scenes/dashboard/Dashboard';
 import { SidebarNav } from 'scenes/global/SidebarNav';
 import { Topbar } from 'scenes/global/Topbar';
@@ -25,6 +26,7 @@ const App = (): ReturnComponentType => {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
+              <Route path="/contacts" element={<Contacts />} />
             </Routes>
           </main>
         </div>
