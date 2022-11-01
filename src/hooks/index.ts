@@ -1,1 +1,1 @@
-export {};
+export { useMode } from './useMode/useMode';

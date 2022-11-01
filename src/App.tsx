@@ -2,7 +2,8 @@ import React from 'react';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
-import { ColorModeContext, useMode } from 'theme';
+import { useMode } from 'hooks';
+import { ColorModeContext } from 'theme';
 import { ReturnComponentType } from 'types';
 
 const App = (): ReturnComponentType => {

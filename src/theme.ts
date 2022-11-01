@@ -1,6 +1,6 @@
-import { createContext, useMemo, useState } from 'react';
+import { createContext } from 'react';
 
-import { createTheme, PaletteMode, Theme } from '@mui/material';
+import { PaletteMode } from '@mui/material';
 import { ThemeOptions } from '@mui/material/styles/createTheme';
 
 interface CustomTheme {
@@ -143,27 +143,6 @@ export const tokens = (mode: PaletteMode): CustomTheme => ({
 });
 
 // mui theme settings
-// interface ThemeSettings {
-//   palette: {
-//     mode: ThemeMode;
-//     primary: {
-//       [key: string]: string;
-//     };
-//     secondary: {
-//       [key: string]: string;
-//     };
-//     neutral: {
-//       [key: string]: string;
-//     };
-//     background: {
-//       [key: string]: string;
-//     };
-//   };
-//   typography: {
-//     [key: string]: any;
-//   };
-// }
-
 export const themeSettings = (mode: PaletteMode): ThemeOptions => {
   const colors = tokens(mode);
 
@@ -239,18 +218,3 @@ export const themeSettings = (mode: PaletteMode): ThemeOptions => {
 export const ColorModeContext = createContext({
   toggleColorMode: () => {},
 });
-
-export const useMode = (): [Theme, { toggleColorMode: () => void }] => {
-  const [mode, setMode] = useState<PaletteMode>('dark');
-
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => setMode(prev => (prev === 'light' ? 'dark' : 'light')),
-    }),
-    [],
-  );
-
-  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
-
-  return [theme, colorMode];
-};
