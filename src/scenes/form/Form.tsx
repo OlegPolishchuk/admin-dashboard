@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Box, TextField, useMediaQuery } from '@mui/material';
-import { Formik } from 'formik';
+import { Box, Button, TextField, useMediaQuery } from '@mui/material';
+import { Formik, FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
 import { Header } from 'components';
@@ -25,7 +25,8 @@ const initialValues = {
   address2: '',
 };
 
-const phoneRegExp = /^\+?([0-9]{3})\)?[- ]([0-9]{2})\)?[- ]?([0-9]{4})[- ]?([0-9]{4})$/;
+const phoneRegExp =
+  /^\+?([0-9]{3})\)?[- ]([0-9]{2})\)?[- ]?([0-9]{3})[- ]?([0-9]{2})[- ]?([0-9]{2})$/;
 
 const userSchema = yup.object().shape({
   firstName: yup.string().required('required'),
@@ -42,8 +43,12 @@ const userSchema = yup.object().shape({
 export const Form = (): ReturnComponentType => {
   const isNonMobile = useMediaQuery('(min-width: 600px)');
 
-  const handleFormSubmit = (value: FormValues): void => {
-    console.log(value);
+  const handleFormSubmit = (
+    values: FormValues,
+    actions: FormikHelpers<FormValues>,
+  ): void => {
+    alert(`New User: ${JSON.stringify(values)}`);
+    actions.resetForm();
   };
 
   return (
@@ -86,7 +91,7 @@ export const Form = (): ReturnComponentType => {
                 label="Last Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.firstName}
+                value={values.lastName}
                 name="lastName"
                 error={!!touched.lastName && !!errors.lastName}
                 helperText={touched.lastName && errors.lastName}
@@ -111,7 +116,7 @@ export const Form = (): ReturnComponentType => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Contact Number"
+                label="Contact Number (+XXX XX XXX XX XX  or +XXX-XX-XXX-XX-XX)"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.contact}
@@ -148,6 +153,12 @@ export const Form = (): ReturnComponentType => {
                 helperText={touched.address2 && errors.address2}
                 sx={{ gridColumn: 'span 4' }}
               />
+            </Box>
+
+            <Box display="flex" justifyContent="flex-end" mt="20px">
+              <Button type="submit" color="secondary" variant="contained">
+                Create New User
+              </Button>
             </Box>
           </form>
         )}
