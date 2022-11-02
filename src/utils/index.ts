@@ -1,1 +1,1 @@
-export {};
+export { isPast } from './IsPats/isPast';

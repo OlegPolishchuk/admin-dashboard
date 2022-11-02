@@ -18,6 +18,7 @@ import { Box, List, ListItem, ListItemText, Typography, useTheme } from '@mui/ma
 import { Header } from 'components';
 import { tokens } from 'theme';
 import { ReturnComponentType } from 'types';
+import { isPast } from 'utils';
 
 export const Calendar = (): ReturnComponentType => {
   const theme = useTheme();
@@ -26,6 +27,12 @@ export const Calendar = (): ReturnComponentType => {
 
   const handleDateClick = (selected: DateSelectArg): void => {
     // all methods are from documentation https://github.com/fullcalendar/fullcalendar-example-projects/blob/master/react-typescript/src/DemoApp.tsx
+    if (isPast(selected.endStr)) {
+      alert('Cant add event in the past');
+
+      return;
+    }
+
     const title = prompt('Please enter a new title for your event');
     const calendarApi = selected.view.calendar;
 
