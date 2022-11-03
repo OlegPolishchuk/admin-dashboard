@@ -10,6 +10,7 @@ import { Contacts } from 'scenes/contacts/Contacts';
 import { Dashboard } from 'scenes/dashboard/Dashboard';
 import { Faq } from 'scenes/faq/FAQ';
 import { Form } from 'scenes/form/Form';
+import { Geography } from 'scenes/geography/Geography';
 import { SidebarNav } from 'scenes/global/SidebarNav';
 import { Topbar } from 'scenes/global/Topbar';
 import { Invoices } from 'scenes/invoices/Invoices';
@@ -41,6 +42,7 @@ const App = (): ReturnComponentType => {
               <Route path="/bar" element={<Bar />} />
               <Route path="/pie" element={<Pie />} />
               <Route path="/line" element={<Line />} />
+              <Route path="/geography" element={<Geography />} />
             </Routes>
           </main>
         </div>
