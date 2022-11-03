@@ -4,6 +4,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 
 import { useMode } from 'hooks';
+import { Bar } from 'scenes/bar/Bar';
 import { Calendar } from 'scenes/calendar/Calendar';
 import { Contacts } from 'scenes/contacts/Contacts';
 import { Dashboard } from 'scenes/dashboard/Dashboard';
@@ -35,6 +36,7 @@ const App = (): ReturnComponentType => {
               <Route path="/form" element={<Form />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/faq" element={<Faq />} />
+              <Route path="/bar" element={<Bar />} />
             </Routes>
           </main>
         </div>
