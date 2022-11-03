@@ -13,6 +13,7 @@ import { Form } from 'scenes/form/Form';
 import { SidebarNav } from 'scenes/global/SidebarNav';
 import { Topbar } from 'scenes/global/Topbar';
 import { Invoices } from 'scenes/invoices/Invoices';
+import { Pie } from 'scenes/pie/Pie';
 import { Team } from 'scenes/team/Team';
 import { ColorModeContext } from 'theme';
 import { ReturnComponentType } from 'types';
@@ -37,6 +38,7 @@ const App = (): ReturnComponentType => {
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/faq" element={<Faq />} />
               <Route path="/bar" element={<Bar />} />
+              <Route path="/pie" element={<Pie />} />
             </Routes>
           </main>
         </div>

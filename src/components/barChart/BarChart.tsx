@@ -7,7 +7,11 @@ import { mockBarData } from 'data/mockData';
 import { tokens } from 'theme';
 import { ReturnComponentType } from 'types';
 
-export const BarChart = (): ReturnComponentType => {
+interface Props {
+  isDashboard?: boolean;
+}
+
+export const BarChart = ({ isDashboard }: Props): ReturnComponentType => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -93,7 +97,7 @@ export const BarChart = (): ReturnComponentType => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'country',
+        legend: isDashboard ? undefined : 'country',
         legendPosition: 'middle',
         legendOffset: 32,
       }}
@@ -101,7 +105,7 @@ export const BarChart = (): ReturnComponentType => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'food',
+        legend: isDashboard ? undefined : 'food',
         legendPosition: 'middle',
         legendOffset: -40,
       }}
