@@ -5,3 +5,4 @@ export { PieChart } from './pieChart/PieChart';
 export { LineChart } from './lineChart/LineChart';
 export { GeographyChart } from './geographyChart/GeographyChart';
 export { ProgressCircle } from './progressCircle/ProgressCircle';
+export { StatBox } from './statBox/StatBox';
