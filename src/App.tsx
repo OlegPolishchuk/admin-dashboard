@@ -7,6 +7,7 @@ import { useMode } from 'hooks';
 import { Calendar } from 'scenes/calendar/Calendar';
 import { Contacts } from 'scenes/contacts/Contacts';
 import { Dashboard } from 'scenes/dashboard/Dashboard';
+import { Faq } from 'scenes/faq/FAQ';
 import { Form } from 'scenes/form/Form';
 import { SidebarNav } from 'scenes/global/SidebarNav';
 import { Topbar } from 'scenes/global/Topbar';
@@ -33,6 +34,7 @@ const App = (): ReturnComponentType => {
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />
               <Route path="/calendar" element={<Calendar />} />
+              <Route path="/faq" element={<Faq />} />
             </Routes>
           </main>
         </div>
