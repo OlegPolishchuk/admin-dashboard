@@ -1,58 +1,41 @@
 import React from 'react';
 
-import { Button, Dialog, DialogActions, DialogContent, useTheme } from '@mui/material';
+import { Dialog, useTheme } from '@mui/material';
 
 import { tokens } from 'theme';
 import { ReturnComponentType } from 'types';
 
 interface Props {
   open: boolean;
-  close: () => void;
+  close: (close: boolean) => void;
   children: React.ReactNode;
-  sendValue: () => void;
 }
 
-export const CustomDialog = ({
-  open,
-  close,
-  children,
-  sendValue,
-}: Props): ReturnComponentType => {
+export const CustomDialog = ({ open, close, children }: Props): ReturnComponentType => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const handleClose = (): void => {
-    close();
-  };
-
-  const handleSend = (): void => {
-    sendValue();
-    close();
+    close(false);
   };
 
   return (
-    <Dialog open={open} onClose={handleClose}>
-      <DialogContent
-        dividers
-        sx={{
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      sx={{
+        zIndex: '10000',
+        '& .MuiDialog-paper': {
           minWidth: '400px',
+          padding: '10px 20px',
           color: colors.primary[900],
           '& .Mui-focused': {
             color: `${colors.greenAccent[200]} !important`,
           },
-        }}
-      >
-        {children}
-      </DialogContent>
-
-      <DialogActions>
-        <Button color="secondary" variant="contained" onClick={handleSend}>
-          Ok
-        </Button>
-        <Button color="error" variant="contained" onClick={handleClose}>
-          Cancel
-        </Button>
-      </DialogActions>
+        },
+      }}
+    >
+      {children}
     </Dialog>
   );
 };

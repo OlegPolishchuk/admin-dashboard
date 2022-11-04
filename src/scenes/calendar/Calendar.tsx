@@ -15,6 +15,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 
 import {
   Box,
+  Button,
+  DialogActions,
   DialogContent,
   DialogContentText,
   List,
@@ -39,35 +41,73 @@ export const Calendar = (): ReturnComponentType => {
 
   const [currentEvents, setCurrentEvents] = useState<EventApi[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  // const [newEventValue, setNewEventValue] = useState('');
-  const [selectedDay, setSelectedDay] = useState<DateSelectArg>({} as DateSelectArg);
   const [dialogChildren, setDialogChildren] = useState<React.ReactNode>(null);
 
   const handleDateClick = (selected: DateSelectArg): void => {
-    setSelectedDay(selected);
-
     if (isPast(selected.endStr)) {
       setDialogChildren(
-        <DialogContent>
-          <DialogContentText>
-            <Typography variant="h5">Cant add event in the past</Typography>
-          </DialogContentText>
-        </DialogContent>,
+        <>
+          <DialogContent>
+            <DialogContentText>
+              <Typography variant="h5" component="span">
+                Cant add event in the past
+              </Typography>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              color="error"
+              variant="contained"
+              onClick={() => setIsDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+          </DialogActions>
+        </>,
       );
     } else {
       setDialogChildren(
         <>
-          <DialogContentText>
-            <Typography variant="h5">Please enter a new title for your event</Typography>
-          </DialogContentText>
-          <TextField
-            autoFocus
-            fullWidth
-            type="text"
-            label="Title"
-            variant="standard"
-            inputRef={inputRef}
-          />
+          <DialogContent
+            sx={{
+              minWidth: '400px',
+              color: colors.primary[900],
+              '& .Mui-focused': {
+                color: `${colors.greenAccent[200]} !important`,
+              },
+            }}
+          >
+            <DialogContentText>
+              <Typography variant="h5" component="span">
+                Please enter a new title for your event
+              </Typography>
+            </DialogContentText>
+            <TextField
+              autoFocus
+              fullWidth
+              type="text"
+              label="Title"
+              variant="standard"
+              inputRef={inputRef}
+            />
+          </DialogContent>
+
+          <DialogActions>
+            <Button
+              color="secondary"
+              variant="contained"
+              onClick={() => handleSetNewEventValueTitle(selected)}
+            >
+              Ok
+            </Button>
+            <Button
+              color="error"
+              variant="contained"
+              onClick={() => setIsDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+          </DialogActions>
         </>,
       );
     }
@@ -75,19 +115,15 @@ export const Calendar = (): ReturnComponentType => {
     setIsDialogOpen(true);
   };
 
-  const handleSetNewEventValueTitle = (): void => {
+  const handleSetNewEventValueTitle = (selected: DateSelectArg): void => {
     if (inputRef.current) {
-      console.log(inputRef.current.value);
-      // setNewEventValue(inputRef.current.value);
-
-      handleSetEvent(inputRef.current.value);
+      handleSetEvent(inputRef.current.value, selected);
     }
   };
 
-  const handleSetEvent = (newEventValue: string): void => {
-    console.log(newEventValue);
+  const handleSetEvent = (newEventValue: string, selected: DateSelectArg): void => {
     // all methods are from documentation https://github.com/fullcalendar/fullcalendar-example-projects/blob/master/react-typescript/src/DemoApp.tsx
-    const calendarApi = selectedDay.view.calendar;
+    const calendarApi = selected.view.calendar;
 
     calendarApi.unselect();
 
@@ -95,27 +131,49 @@ export const Calendar = (): ReturnComponentType => {
       calendarApi.addEvent({
         id: `${Date.now()}`,
         title: newEventValue,
-        start: selectedDay.startStr,
-        end: selectedDay.endStr,
-        allDay: selectedDay.allDay,
+        start: selected.startStr,
+        end: selected.endStr,
+        allDay: selected.allDay,
       });
     }
+
+    setIsDialogOpen(false);
   };
 
   const handleEventClick = (selected: EventClickArg): void => {
-    if (
-      window.confirm(
-        `Are you sure you want to delete the event ${selected.event.title} ?`,
-      )
-    ) {
-      selected.event.remove();
-    }
+    setDialogChildren(
+      <>
+        <DialogContentText sx={{ padding: '10px', zIndex: '99' }}>
+          <Typography variant="h5" component="span">
+            Are you sure you want to delete the event &quot;{selected.event.title}&quot; ?
+          </Typography>
+        </DialogContentText>
+        <DialogActions>
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={() => removeEvent(selected)}
+          >
+            remove
+          </Button>
+          <Button
+            color="error"
+            variant="contained"
+            onClick={() => setIsDialogOpen(false)}
+          >
+            cansel
+          </Button>
+        </DialogActions>
+      </>,
+    );
+
+    setIsDialogOpen(true);
   };
 
-  // const handleChangeNewEventValue = (event: ChangeEvent<HTMLInputElement>): void => {
-  //   console.log(event.currentTarget.value);
-  //   setNewEventValue(event.currentTarget.value);
-  // };
+  const removeEvent = (selectedEvent: EventClickArg): void => {
+    selectedEvent.event.remove();
+    setIsDialogOpen(false);
+  };
 
   return (
     <>
@@ -177,11 +235,7 @@ export const Calendar = (): ReturnComponentType => {
           </Box>
         </Box>
       </Box>
-      <CustomDialog
-        open={isDialogOpen}
-        close={() => setIsDialogOpen(false)}
-        sendValue={handleSetNewEventValueTitle}
-      >
+      <CustomDialog open={isDialogOpen} close={setIsDialogOpen}>
         {dialogChildren}
       </CustomDialog>
     </>
